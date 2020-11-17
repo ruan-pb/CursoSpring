@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 @Entity
 @Table(name = "tb_order")
@@ -22,8 +24,10 @@ public class Order implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Instant moment;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
+	private Instant moment;
+	// se por acaso eu podesse o jsonIgnore aqui ao invés no User,e o comando no aplicationProperties estivesse "spring.jpa.open-in-view=true"  ia buscar o cliente e todas os seus pedidos
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
