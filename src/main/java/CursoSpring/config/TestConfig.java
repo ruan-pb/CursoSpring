@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import CursoSpring.entities.Category;
 import CursoSpring.entities.Order;
+import CursoSpring.entities.OrderItem;
 import CursoSpring.entities.Product;
 import CursoSpring.entities.User;
 import CursoSpring.entities.enums.OrderStatus;
 import CursoSpring.repositories.CategoryRepository;
+import CursoSpring.repositories.OrderItemRepository;
 import CursoSpring.repositories.OrderRepository;
 import CursoSpring.repositories.ProductRepository;
 import CursoSpring.repositories.UserRepository;
@@ -33,6 +35,10 @@ public class TestConfig  implements CommandLineRunner{ // o comando coomandLineR
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
+	
 	
 	
 
@@ -77,6 +83,14 @@ public class TestConfig  implements CommandLineRunner{ // o comando coomandLineR
 		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), u1,OrderStatus.WAITING_PAYMENT); 
 		
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		
 		
 	} 
 
