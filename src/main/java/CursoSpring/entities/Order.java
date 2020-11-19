@@ -15,24 +15,24 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import CursoSpring.entities.enums.OrderStatus;
 
-
 @Entity
 @Table(name = "tb_order")
-public class Order implements Serializable{
-	
-	
+public class Order implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
-	
+
 	private Integer orderStatus;
-	
-	// se por acaso eu podesse o jsonIgnore aqui ao invés no User,e o comando no aplicationProperties estivesse "spring.jpa.open-in-view=true"  ia buscar o cliente e todas os seus pedidos
+
+	// se por acaso eu podesse o jsonIgnore aqui ao invés no User,e o comando no
+	// aplicationProperties estivesse "spring.jpa.open-in-view=true" ia buscar o
+	// cliente e todas os seus pedidos
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
@@ -41,12 +41,12 @@ public class Order implements Serializable{
 		super();
 	}
 
-	public Order(Long id, Instant moment, User client,OrderStatus orderStatus) {
+	public Order(Long id, Instant moment, User client, OrderStatus orderStatus) {
 		super();
 		this.id = id;
 		this.moment = moment;
 		this.client = client;
-		this.orderStatus = orderStatus;
+		this.setOrderStatus(orderStatus);
 	}
 
 	public Long getId() {
@@ -104,13 +104,13 @@ public class Order implements Serializable{
 	}
 
 	public OrderStatus getOrderStatus() {
-		return OrderStatus.valueOf(orderStatus) ;
+		return OrderStatus.valueOf(orderStatus);
 	}
 
-	public void setOrderStatus(OrderStatus orderStatus ) {
-		this.orderStatus = orderStatus.getCode();
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if (orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
 	}
-	
-	
 
 }
