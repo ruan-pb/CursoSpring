@@ -24,6 +24,7 @@ public class OrderItem implements Serializable {
 	
 	public OrderItem() {
 	}
+	
 	public OrderItem(Order order, Product product, Integer quantity, Double price) {
 		super();
 		id.setOrder(order);
@@ -60,6 +61,9 @@ public class OrderItem implements Serializable {
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+	public Double getSubTotal() {
+		return this.price + this.quantity;
 	}
 	@Override
 	public int hashCode() {
