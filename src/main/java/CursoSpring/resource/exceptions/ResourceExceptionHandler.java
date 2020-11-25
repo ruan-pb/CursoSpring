@@ -15,8 +15,8 @@ import CursoSpring.services.exceptions.ResourceNotFoundException;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<StandardErro> resourcenotFound(ResourceNotFoundException e ,HttpServletRequest request){
-		String error = "resourde not found";
+	public ResponseEntity<StandardErro> resourceNotFound(ResourceNotFoundException e ,HttpServletRequest request){
+		String error = "resourse not found";
 		HttpStatus status= HttpStatus.NOT_FOUND;
 		StandardErro err = new StandardErro(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
